@@ -26,14 +26,12 @@ class DisplayActivity : AppCompatActivity() {
         fullname = receivedIntent.getStringExtra("name")
         profpic = receivedIntent.getParcelableExtra ("picture", Bitmap::class.java)
 
-        fullname = fullname!!.replace("^\\s+".toRegex(), "")
-        val splitname = fullname!!.split("\\s+".toRegex()).toTypedArray()
+        //fullname = fullname!!.replace("^\\s+".toRegex(), "")
+        //val splitname = fullname!!.split("\\s+".toRegex()).toTypedArray()
+        //val firstlast = splitname[0] + " " + splitname[splitname.size - 1]
 
-        val firstlast = splitname[0] + " " + splitname[2]
-
-        //picbox is null, intent is ok
-        picBox!!.setImageBitmap(profpic)//null here? profpic not passed correctly
-        namebox!!.text = firstlast
+        picBox!!.setImageBitmap(profpic)
+        namebox!!.text = fullname + " is logged in!"
 
     }
 }

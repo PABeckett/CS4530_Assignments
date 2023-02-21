@@ -7,26 +7,20 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     //private lateinit var appBarConfiguration: AppBarConfiguration
     //private lateinit var binding: ActivityMainBinding
     private var buttonSubmit: Button? = null
-    private var textview_namebox: TextView? = null
-    private var edittext_namebox: EditText? = null
+    //private var textview_namebox: TextView? = null
+    private var firstname: EditText? = null
+    private var middlename: EditText? = null
+    private var lastname: EditText? = null
     private var fullname: String? = null
     private var buttonCamera: Button? = null
     private var profPic: ImageView? = null
@@ -38,7 +32,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         //binding = ActivityMainBinding.inflate(layoutInflater)
         //setContentView(binding.root)
-        setContentView(R.layout.activity_main_backup)
+        setContentView(R.layout.activity_main)
 
         //setSupportActionBar(binding.toolbar)
 
@@ -48,8 +42,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonCamera = findViewById(R.id.button_pic)
         buttonCamera!!.setOnClickListener(this)
 
-        textview_namebox = findViewById(R.id.textview_namebox)
-        edittext_namebox = findViewById(R.id.edittext_namebox)
+        //textview_namebox = findViewById(R.id.textview_namebox)
+        firstname = findViewById(R.id.firstname)
+        middlename = findViewById(R.id.middlename)
+        lastname = findViewById(R.id.lastname)
 
         //edittext_namebox!!.setInputType(InputType.TYPE_CLASS_TEXT);
 
@@ -68,17 +64,40 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         {
             R.id.button_submit->
             {
-                textview_namebox!!.text = ""
-                fullname = edittext_namebox!!.text.toString()
+/*
+                fullname = firstname!!.text.toString() + " " + lastname!!.text.toString()
 
                 if(fullname.isNullOrBlank())
                 {
-                    Toast.makeText(this@MainActivity, "Please enter a name", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "Please enter at least a first and last name", Toast.LENGTH_SHORT).show()
                 }
+*/
+                if(firstname!!.text.isNullOrBlank() || lastname!!.text.isNullOrBlank())
+                {
+                    Toast.makeText(this@MainActivity, "Please enter at least a first and last name", Toast.LENGTH_SHORT).show()
+                }
+                //textview_namebox!!.text = ""
 
                 else
                 {
-                    fullname = fullname!!.replace("^\\s+".toRegex(), "")
+                    fullname = firstname!!.text.toString() + " " + lastname!!.text.toString()
+
+                    if(tookPic == true)
+                    {
+                        val message_intent = Intent(this, DisplayActivity::class.java)
+                        message_intent.putExtra("name", fullname)
+                        message_intent.putExtra("picture", picMap)
+                        this.startActivity(message_intent)
+                    }
+
+                    else
+                    {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Must take a picture to continue",
+                            Toast.LENGTH_SHORT).show()
+                    }
+/*                    fullname = fullname!!.replace("^\\s+".toRegex(), "")
                     val splitname = fullname!!.split("\\s+".toRegex()).toTypedArray()
                     Log.i("splitname", fullname!!)
 
@@ -130,6 +149,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                                 Toast.LENGTH_SHORT).show()
                         }
                     }
+                    */
+
                 }
 
             }
