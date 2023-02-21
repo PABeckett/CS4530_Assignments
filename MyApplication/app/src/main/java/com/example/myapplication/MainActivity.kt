@@ -47,6 +47,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         middlename = findViewById(R.id.middlename)
         lastname = findViewById(R.id.lastname)
 
+        profPic = findViewById<View>(R.id.iv_pic) as ImageView
+
+
+
+        if(savedInstanceState != null)
+        {
+            picMap = savedInstanceState!!.getParcelable("picture", Bitmap::class.java)
+            profPic!!.setImageBitmap(picMap)
+        }
+        else
+        {
+            Log.i("bruh", "bruh")//never called except start
+        }
+
+
+
         //edittext_namebox!!.setInputType(InputType.TYPE_CLASS_TEXT);
 
         ///val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -82,7 +98,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 {
                     fullname = firstname!!.text.toString() + " " + lastname!!.text.toString()
 
-                    if(tookPic == true)
+                    if(picMap != null)
                     {
                         val message_intent = Intent(this, DisplayActivity::class.java)
                         message_intent.putExtra("name", fullname)
@@ -172,7 +188,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val cameraActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if(result.resultCode == RESULT_OK) {
-            tookPic = true;
+            //tookPic = true;
 
             profPic = findViewById<View>(R.id.iv_pic) as ImageView
             //val extras = result.data!!.extras
@@ -183,15 +199,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 profPic!!.setImageBitmap(thumbnailImage)
                 picMap = thumbnailImage
             }
-            else{
+            else {
                 val thumbnailImage = result.data!!.getParcelableExtra<Bitmap>("data")
                 profPic!!.setImageBitmap(thumbnailImage)
                 picMap = thumbnailImage
             }
-
-
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        // Always call the superclass so it can save any view hierarchy
+        super.onSaveInstanceState(outState)
+        // Save the user's current state
+        //happening when camera is called -> picMap starts null
+        if(picMap != null)
+        {
+            outState.putParcelable("picture", picMap)
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        picMap = savedInstanceState!!.getParcelable("picture", Bitmap::class.java)
+        profPic!!.setImageBitmap(picMap)
+    }
+
 /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

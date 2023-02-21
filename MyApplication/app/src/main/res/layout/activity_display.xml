@@ -20,10 +20,11 @@
     <ImageView
         android:id="@+id/picbox"
         android:layout_width="225dp"
-        android:layout_height="231dp"
+        android:layout_height="225dp"
+        android:background="#00FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/namebox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

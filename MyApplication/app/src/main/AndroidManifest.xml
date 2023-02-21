@@ -15,8 +15,8 @@
             android:screenOrientation="sensor"
             android:name=".MainActivity"
             android:exported="true"
-            android:label="Please Follow Instructions to Log In"
-            android:theme="@style/Theme.MyApplication.NoActionBar" >
+            android:label="Please Follow Instructions to Log In" >
+            <!-- android:theme="@style/Theme.MyApplication.NoActionBar" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
