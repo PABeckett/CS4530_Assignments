@@ -26,10 +26,6 @@ class DisplayActivity : AppCompatActivity() {
         fullname = receivedIntent.getStringExtra("name")
         profpic = receivedIntent.getParcelableExtra ("picture", Bitmap::class.java)
 
-        //fullname = fullname!!.replace("^\\s+".toRegex(), "")
-        //val splitname = fullname!!.split("\\s+".toRegex()).toTypedArray()
-        //val firstlast = splitname[0] + " " + splitname[splitname.size - 1]
-
         picBox!!.setImageBitmap(profpic)
         namebox!!.text = fullname + " is logged in!"
 

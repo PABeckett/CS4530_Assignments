@@ -4,35 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- tools:context=".FirstFragment" -->
-
-
-    <!--
-    <TextView
-        android:id="@+id/textview_first4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:text="Creating Account As:"
-        app:layout_constraintBottom_toTopOf="@+id/textview_first2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textview_namebox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Firstname Lastname"
-        app:layout_constraintBottom_toTopOf="@+id/textview_first2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_first4"
-        app:layout_constraintVertical_bias="0.081" />
--->
 
     <EditText
         android:id="@+id/middlename"
@@ -40,7 +11,7 @@
         android:layout_height="42dp"
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
-        android:hint="Middle Name:"
+        android:hint="Enter Middle Name  (Optional):"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +23,7 @@
         android:layout_height="42dp"
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
-        android:hint="Last Name:"
+        android:hint="Enter Last Name (Required):"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +35,7 @@
         android:layout_height="42dp"
         android:layout_marginTop="25dp"
         android:gravity="center_horizontal"
-        android:hint="First Name:"
+        android:hint="Enter First Name (Required):"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

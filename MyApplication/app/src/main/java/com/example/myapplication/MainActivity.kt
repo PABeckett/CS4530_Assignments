@@ -30,11 +30,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //binding = ActivityMainBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
         setContentView(R.layout.activity_main)
-
-        //setSupportActionBar(binding.toolbar)
 
         buttonSubmit = findViewById(R.id.button_submit)
         buttonSubmit!!.setOnClickListener(this)
@@ -42,37 +38,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         buttonCamera = findViewById(R.id.button_pic)
         buttonCamera!!.setOnClickListener(this)
 
-        //textview_namebox = findViewById(R.id.textview_namebox)
         firstname = findViewById(R.id.firstname)
         middlename = findViewById(R.id.middlename)
         lastname = findViewById(R.id.lastname)
 
         profPic = findViewById<View>(R.id.iv_pic) as ImageView
 
-
-
         if(savedInstanceState != null)
         {
             picMap = savedInstanceState!!.getParcelable("picture", Bitmap::class.java)
             profPic!!.setImageBitmap(picMap)
         }
-        else
-        {
-            Log.i("bruh", "bruh")//never called except start
-        }
-
-
-
-        //edittext_namebox!!.setInputType(InputType.TYPE_CLASS_TEXT);
-
-        ///val navController = findNavController(R.id.nav_host_fragment_content_main)
-        ///appBarConfiguration = AppBarConfiguration(navController.graph)
-        ///setupActionBarWithNavController(navController, appBarConfiguration)
-
-        //binding.fab.setOnClickListener { view ->
-        //    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //            .setAction("Action", null).show()
-        //}
     }
 
     override fun onClick(view: View?){
@@ -80,20 +56,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         {
             R.id.button_submit->
             {
-/*
-                fullname = firstname!!.text.toString() + " " + lastname!!.text.toString()
-
-                if(fullname.isNullOrBlank())
-                {
-                    Toast.makeText(this@MainActivity, "Please enter at least a first and last name", Toast.LENGTH_SHORT).show()
-                }
-*/
                 if(firstname!!.text.isNullOrBlank() || lastname!!.text.isNullOrBlank())
                 {
                     Toast.makeText(this@MainActivity, "Please enter at least a first and last name", Toast.LENGTH_SHORT).show()
                 }
-                //textview_namebox!!.text = ""
-
                 else
                 {
                     fullname = firstname!!.text.toString() + " " + lastname!!.text.toString()
@@ -113,66 +79,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             "Must take a picture to continue",
                             Toast.LENGTH_SHORT).show()
                     }
-/*                    fullname = fullname!!.replace("^\\s+".toRegex(), "")
-                    val splitname = fullname!!.split("\\s+".toRegex()).toTypedArray()
-                    Log.i("splitname", fullname!!)
-
-                    when(splitname.size)
-                    {
-                        1 ->
-                        {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Must type three names, only one provided",
-                                Toast.LENGTH_SHORT).show()
-                        }
-                        2 ->
-                        {
-                            Toast.makeText(
-                            this@MainActivity,
-                            "Must type three names, only two provided",
-                            Toast.LENGTH_SHORT).show()
-                        }
-                        3 ->
-                        {
-                            //Toast.makeText(
-                            //    this@MainActivity,
-                            //    "Welcome",
-                            //    Toast.LENGTH_SHORT).show()
-
-                            if(tookPic == true)
-                            {
-                                val message_intent = Intent(this, DisplayActivity::class.java)
-                                message_intent.putExtra("name", fullname)
-                                message_intent.putExtra("picture", picMap)//how to pass bitmap?
-                                this.startActivity(message_intent)
-                            }
-
-                            else
-                            {
-                                Toast.makeText(
-                                    this@MainActivity,
-                                    "Must take a picture to continue",
-                                    Toast.LENGTH_SHORT).show()
-                            }
-                            //textview_namebox!!.text = fullname
-                        }
-                        else ->
-                        {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Do not enter more than three names",
-                                Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    */
-
                 }
-
             }
             R.id.button_pic ->
             {
-                //The button press should open a camera
                 val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 try{
                     cameraActivity.launch(cameraIntent)
@@ -188,11 +98,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private val cameraActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
         if(result.resultCode == RESULT_OK) {
-            //tookPic = true;
 
             profPic = findViewById<View>(R.id.iv_pic) as ImageView
-            //val extras = result.data!!.extras
-            //val thumbnailImage = extras!!["data"] as Bitmap?
 
             if (Build.VERSION.SDK_INT >= 33) {
                 val thumbnailImage = result.data!!.getParcelableExtra("data", Bitmap::class.java)
@@ -208,10 +115,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        // Always call the superclass so it can save any view hierarchy
         super.onSaveInstanceState(outState)
-        // Save the user's current state
-        //happening when camera is called -> picMap starts null
         if(picMap != null)
         {
             outState.putParcelable("picture", picMap)
@@ -223,28 +127,4 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         picMap = savedInstanceState!!.getParcelable("picture", Bitmap::class.java)
         profPic!!.setImageBitmap(picMap)
     }
-
-/*
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when(item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-    val navController = findNavController(R.id.nav_host_fragment_content_main)
-    return navController.navigateUp(appBarConfiguration)
-            || super.onSupportNavigateUp()
-    }
- */
 }
